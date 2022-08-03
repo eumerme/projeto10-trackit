@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import ContainerLoginSignup from "../styles/style";
 import logo from "../../assets/image/logo.svg";
 
 export default function LoginPage() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -16,10 +19,20 @@ export default function LoginPage() {
         });
     };
 
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const bodyLogin = { ...formData };
+        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
+        
+        const promise = axios.post(url, bodyLogin);
+        promise.catch(error => alert(error.response.data.message));
+        promise.then(response => navigate('/hoje'));
+    };
+
     return (
         <ContainerLoginSignup>
             <img src={logo} alt='TrackIt' />
-            <form /* onSubmit={handleLogin} */>
+            <form onSubmit={handleLogin}>
                 <div>
                     <input
                         type='email'

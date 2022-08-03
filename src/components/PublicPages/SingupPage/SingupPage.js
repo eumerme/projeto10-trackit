@@ -18,7 +18,7 @@ export default function SingupPage() {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
-        })
+        });
     };
 
     const handleSignup = (e) => {
