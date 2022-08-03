@@ -1,14 +1,6 @@
 import styled from "styled-components";
 
-export default function ContainerLoginSignup({ children }) {
-    return (
-        <Wrapper>
-            {children}
-        </Wrapper>
-    );
-}
-
-const Wrapper = styled.div`
+const ContainerLoginSignup = styled.div`
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -25,6 +17,7 @@ const Wrapper = styled.div`
         width: 303px;
         height: 45px;
         font-size: 20px;
+        color: #666666;
         margin-bottom: 6px;
         outline: none;
         border: 1px solid #D5D5D5;
@@ -54,3 +47,5 @@ const Wrapper = styled.div`
         text-decoration: underline;
     }
 `;
+
+export default ContainerLoginSignup;
