@@ -1,136 +1,123 @@
 import styled from "styled-components";
 
 const Main = styled.div`
-width: 100%;
-height: 100%;
-padding: 18px;
-margin-top: 53px;
+    width: 100%;
+    height: 100%;
+    padding: 18px;
+    margin-top: 53px;
 `;
 
 const Header = styled.div`
-width: 100%;
-height: 79px;
-display: flex;
-align-items: center;
-justify-content: space-between;
+    width: 100%;
+    height: 79px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-h1 {
-    font-size: 23px;
-    color: #126BA5;
-}
+    h1 {
+        font-size: 23px;
+        color: #126BA5;
+    }
 
-div {
-    width: 40px;
-    height: 35px;
-    font-size: 27px;
-    color: #ffffff;
-    background: #52B6FF;
-    border-radius: 5px;
-    display: grid;
-    place-content: center;
-}
+    div {
+        width: 40px;
+        height: 35px;
+        font-size: 27px;
+        color: #ffffff;
+        background: #52B6FF;
+        border-radius: 5px;
+        display: grid;
+        place-content: center;
+    }
 `;
 
 const Habit = styled.form`
-width: 100%;
-min-height: 91px;
-max-height: 180px;
-padding: 18px;
-background-color: #ffffff;
-border-radius: 5px;
-position: relative;
-
-div {
     width: 100%;
-    height: auto;
-}
+    min-height: 91px;
+    max-height: 180px;
+    padding: 18px;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    position: relative;
+
+    div {
+        width: 100%;
+        height: auto;
+    }
 `;
 
 const Title = styled.div`
-input {
-    width: 100%;
-    height: 45px;
-    font-size: 20px;
-    color: #666666;
-    margin-bottom: 8px;
-    outline: none;
-    border: 1px solid #D4D4D4;
-    border-radius: 5px;
-    padding-left: 10px;
-}
+    input {
+        width: 100%;
+        height: 45px;
+        font-size: 20px;
+        color: #666666;
+        margin-bottom: 8px;
+        outline: none;
+        border: 1px solid #D4D4D4;
+        border-radius: 5px;
+        padding-left: 10px;
+    }
 
-input::placeholder {
-    font-size: 20px;
-    color: #DBDBDB;
-}
+    input::placeholder {
+        font-size: 20px;
+        color: #DBDBDB;
+    }
 
-h1 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
+    h1 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
 
-img {
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
+    img {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
 `;
 
 const Days = styled.div`
-width: 100%;
-height: 31px;
-display: flex;
-
-div {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-    font-size: 20px;
-    color: #DBDBDB;
-    border: 1px solid #D4D4D4;
-    border-radius: 5px;
+    width: 100%;
+    height: 31px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
 `;
 
 const Buttons = styled.div`
-width: 100%;
-height: 35px;
-display: flex;
-justify-content: flex-end;
-margin-top: 29px;
-
-span {
-    width: 84px;
+    width: 100%;
     height: 35px;
-    font-size: 16px;
-    color: #52B6FF;
-    display: grid;
-    place-content: center;
-    margin-right: 20px;
-}
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 29px;
 
-button {
-    width: 84px;
-    height: 35px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #52B6FF;
-    border: none;
-    border-radius: 5px;
-    display: grid;
-    place-content: center;
-}
+    span {
+        width: 84px;
+        height: 35px;
+        font-size: 16px;
+        color: #52B6FF;
+        display: grid;
+        place-content: center;
+        margin-right: 20px;
+    }
+
+    button {
+        width: 84px;
+        height: 35px;
+        font-size: 16px;
+        color: #ffffff;
+        background-color: #52B6FF;
+        border: none;
+        border-radius: 5px;
+        display: grid;
+        place-content: center;
+    }
 `;
 
 const Info = styled.div`
-font-size: 18px;
-line-height: 22px;
-margin-top: 30px;
+    font-size: 18px;
+    line-height: 22px;
 `;
 
 export {Main, Header, Habit, Title, Days, Buttons, Info};

@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import UserContext from "../../../Contexts/UserContext";
 
 export default function Top() {
+    const { user } = useContext(UserContext);
+
     return (
         <Wrapper>
             <span>TrackIt</span>
-            <img src='https://static.natgeo.pt/files/styles/image_3200/public/75552.ngsversion.1422285553360.webp?w=768' alt='foto do perfil' />
+            <img src={user.image} alt='' />
         </Wrapper>
     );
 }

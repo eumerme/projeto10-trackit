@@ -9,7 +9,9 @@ import TodayPage from "./PrivatePages/TodayPage/TodayPage";
 import HistoryPage from "./PrivatePages/HistoryPage/HistoryPage";
 
 export default function App() {
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState({});
+
+    console.log(user)
 
     return (
         <>
