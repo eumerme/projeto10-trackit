@@ -1,35 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { Main, Header, Habit, Title, Days, Buttons, Info } from "../styles/styles";
-import axios from "axios";
+import Habits from "./Habits";
 import "../styles/style.css";
 import Menu from "../common/Menu";
 import Top from "../common/Top";
-import deleteHabit from "../../assets/image/trash-outline.svg";
-import UserContext from "../../../Contexts/UserContext";
+
+import { createHabits, getHabitList } from "../../../services/trackit";
 
 const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
-
-function Habits({ days, name }) {
-    return (
-        <Habit>
-            <Title>
-                <img src={deleteHabit} alt='deletar hábito' />
-                <h1>{name}</h1>
-            </Title>
-            <Days>
-                {weekdays.map((value, index) => {
-                    const isSelected = days.some(id => id === index);
-                    if (isSelected) {
-                        return <div className="day selected" key={index}>{value}</div>
-                    } else {
-                        return <div className="day" key={index}>{value}</div>
-                    };
-                })}
-            </Days>
-        </Habit>
-    );
-}
-
 
 function Weekday({ id, day, getDayID }) {
     const [selected, setSelected] = useState(false);
@@ -46,26 +24,14 @@ function Weekday({ id, day, getDayID }) {
 }
 
 export default function HabitPage() {
-    const { user } = useContext(UserContext);
-    const [habitList, setHabitlist] = useState(null);
+    const [habitList, setHabitlist] = useState([]);
     const [openForm, setOpenForm] = useState(false);
     const [name, setName] = useState('');
     const [days, setDays] = useState([]);
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${user.token}`
-        }
-    };
-
-    const getHabitList = () => {
-        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
-
-        const promise = axios.get(url, config);
-        promise.catch(error => alert(error.response.data.message));
-        promise.then(response => setHabitlist(response.data));
-    };
-    getHabitList();
+    getHabitList()
+        .catch(error => alert(error.response.data.message))
+        .then(response => setHabitlist(response.data));
 
     const handleCreateHabit = (e) => {
         e.preventDefault();
@@ -73,17 +39,15 @@ export default function HabitPage() {
             name,
             days,
         };
-        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
 
-        const promise = axios.post(url, bodyHabit, config);
-        promise.catch(error => alert(error.response.data.message));
-        promise.then(response => {
-            getHabitList();
-            setOpenForm(!openForm);
-            setName("");
-            setDays([]);
-        });
-
+        createHabits(bodyHabit)
+            .catch(error => alert(error.response.data.message))
+            .then(response => {
+                getHabitList();
+                setOpenForm(!openForm);
+                setName("");
+                setDays([]);
+            });
     };
 
     const getDayID = (index) => {
@@ -123,19 +87,25 @@ export default function HabitPage() {
                             </Days>
                         </div>
                         <Buttons>
-                            <span>Cancelar</span>
+                            <span onClick={() => { setOpenForm(!openForm) }}>Cancelar</span>
                             <button type='submit'>Salvar</button>
                         </Buttons>
                     </Habit >
                 ) : ("")}
-                {habitList === null ? (
+                {habitList.length === 0 ? (
                     <Info>
                         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
                     </Info>
                 ) : (
                     <>
                         {habitList.map(value => (
-                            <Habits key={value.id} days={value.days} name={value.name} />
+                            <Habits
+                                key={value.id}
+                                days={value.days}
+                                name={value.name}
+                                habitId={value.id}
+                                getHabitList={getHabitList}
+                            />
                         ))}
                     </>
                 )}

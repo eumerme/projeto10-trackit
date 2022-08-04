@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from "axios";
+import { signUp } from '../../../services/trackit';
 import ContainerLoginSignup from '../styles/style';
 import logo from '../../assets/image/logo.svg';
 
 export default function SingupPage() {
     const navigate = useNavigate();
-    
+
     const [formData, setFormData] = useState({
         email: '',
         name: '',
@@ -24,13 +24,12 @@ export default function SingupPage() {
     const handleSignup = (e) => {
         e.preventDefault();
         const bodySignup = { ...formData };
-        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
-        
-        const promise = axios.post(url, bodySignup);
-        promise.catch(error => alert(error.response.data.message));
-        promise.then(response => navigate('/'));
+
+        signUp(bodySignup)
+            .catch(error => alert(error.response.data.message))
+            .then(response => navigate('/'));
     };
-    
+
     return (
         <ContainerLoginSignup>
             <img src={logo} alt='TrackIt' />

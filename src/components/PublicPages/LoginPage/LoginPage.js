@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { login } from "../../../services/trackit";
 import ContainerLoginSignup from "../styles/style";
 import logo from "../../assets/image/logo.svg";
 import UserContext from "../../../Contexts/UserContext";
@@ -24,17 +24,16 @@ export default function LoginPage() {
     const handleLogin = (e) => {
         e.preventDefault();
         const bodyLogin = { ...formData };
-        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
 
-        const promise = axios.post(url, bodyLogin);
-        promise.catch(error => alert(error.response.data.message));
-        promise.then(response => {
-            setUser(response.data);
-            /* localStorage.setItem("trackit", JSON.stringify(response.data.token)); */
-            console.log(response.data);
-            /* console.log(localStorage) */
-            navigate('/hoje')
-        });
+        login(bodyLogin)
+            .catch(error => alert(error.response.data.message))
+            .then(response => {
+                setUser(response.data);
+                localStorage.setItem("trackit", JSON.stringify(response.data.token));
+                localStorage.setItem("profilePic", JSON.stringify(response.data.image));
+                /* console.log(localStorage) */
+                navigate('/hoje')
+            });
     };
 
     return (

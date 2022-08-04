@@ -4,7 +4,7 @@ const Main = styled.div`
     width: 100%;
     height: 100%;
     padding: 18px;
-    margin-top: 53px;
+    margin: 53px 0 70px 0;
 `;
 
 const Header = styled.div`

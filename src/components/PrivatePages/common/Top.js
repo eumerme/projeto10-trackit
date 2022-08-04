@@ -1,14 +1,10 @@
-import { useContext } from "react";
 import styled from "styled-components";
-import UserContext from "../../../Contexts/UserContext";
 
 export default function Top() {
-    const { user } = useContext(UserContext);
-
     return (
         <Wrapper>
             <span>TrackIt</span>
-            <img src={user.image} alt='' />
+            <img src={JSON.parse(localStorage.getItem("profilePic"))} alt='' />
         </Wrapper>
     );
 }
@@ -28,6 +24,7 @@ const Wrapper = styled.div`
     position: fixed;
     top: 0;
     right: 0;
+    z-index: 1;
 
     img {
         width: 51px;
