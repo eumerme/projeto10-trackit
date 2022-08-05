@@ -7,30 +7,6 @@ const Main = styled.div`
     margin: 53px 0 70px 0;
 `;
 
-const Header = styled.div`
-    width: 100%;
-    height: 79px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    h1 {
-        font-size: 23px;
-        color: #126BA5;
-    }
-
-    div {
-        width: 40px;
-        height: 35px;
-        font-size: 27px;
-        color: #ffffff;
-        background: #52B6FF;
-        border-radius: 5px;
-        display: grid;
-        place-content: center;
-    }
-`;
-
 const Habit = styled.form`
     width: 100%;
     min-height: 91px;
@@ -120,4 +96,4 @@ const Info = styled.div`
     line-height: 22px;
 `;
 
-export {Main, Header, Habit, Title, Days, Buttons, Info};
+export { Main, Habit, Title, Days, Buttons, Info };

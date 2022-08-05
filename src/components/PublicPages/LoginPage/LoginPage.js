@@ -29,9 +29,13 @@ export default function LoginPage() {
             .catch(error => alert(error.response.data.message))
             .then(response => {
                 setUser(response.data);
-                localStorage.setItem("trackit", JSON.stringify(response.data.token));
-                localStorage.setItem("profilePic", JSON.stringify(response.data.image));
-                /* console.log(localStorage) */
+                localStorage.setItem("trackit", JSON.stringify(
+                    {
+                        token: response.data.token,
+                        image: response.data.image,
+                        timestamp: +new Date()
+                    }
+                ));
                 navigate('/hoje')
             });
     };

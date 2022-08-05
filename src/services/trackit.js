@@ -1,19 +1,19 @@
-import { useContext } from "react";
-import UserContext from "../Contexts/UserContext";
 import axios from "axios";
 
 const urlBase = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit';
 
 function creatHeaders() {
     const auth = JSON.parse(localStorage.getItem("trackit"));
+    console.log(auth)
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${auth}`
-        }
+    if (auth !== null) {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        };
+        return config;
     };
-
-    return config;
 }
 
 function signUp(bodySignup) {
@@ -45,4 +45,33 @@ function deleteHabit(habitId) {
     return promise;
 }
 
-export { signUp, login, createHabits, getHabitList, deleteHabit };
+function getTodayHabit() {
+    const config = creatHeaders();
+    const promise = axios.get(`${urlBase}/habits/today`, config);
+    return promise;
+}
+
+function habitCheck(habitId) {
+    console.log(habitId, "chamei check")
+    const config = creatHeaders();
+    const promise = axios.post(`${urlBase}/habits/${habitId}/check`, config);
+    return promise;
+}
+
+function habitUncheck(habitId) {
+    console.log(habitId, "chamei uncheck")
+    const config = creatHeaders();
+    const promise = axios.post(`${urlBase}/habits/${habitId}/uncheck`, config);
+    return promise;
+}
+
+export {
+    signUp,
+    login,
+    createHabits,
+    getHabitList,
+    deleteHabit,
+    getTodayHabit,
+    habitCheck,
+    habitUncheck
+};

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export default function Top() {
+    const auth = JSON.parse(localStorage.getItem("trackit"));
     return (
         <Wrapper>
             <span>TrackIt</span>
-            <img src={JSON.parse(localStorage.getItem("profilePic"))} alt='' />
+            <img src={auth.image} alt='' />
         </Wrapper>
     );
 }

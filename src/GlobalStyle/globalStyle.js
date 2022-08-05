@@ -36,7 +36,7 @@ body {
 	font-family: 'Lexend Deca', sans-serif;
 	font-weight: 400;
 	color: #666666;
-	background-color: #E5E5E5;
+	background-color: #F2F2F2;
 }
 ol, ul {
 	list-style: none;

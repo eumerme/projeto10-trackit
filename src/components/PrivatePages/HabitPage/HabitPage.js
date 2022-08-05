@@ -1,11 +1,9 @@
-import { useState } from "react";
-import { Main, Header, Habit, Title, Days, Buttons, Info } from "../styles/styles";
-import Habits from "./Habits";
-import "../styles/style.css";
-import Menu from "../common/Menu";
-import Top from "../common/Top";
-
+import { useEffect, useState } from "react";
 import { createHabits, getHabitList } from "../../../services/trackit";
+import { Main, Habit, Title, Days, Buttons, Info } from "../styles/styles";
+import { Top, Header, Menu } from "../common";
+import "../styles/style.css";
+import Habits from "./Habits";
 
 const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
@@ -24,14 +22,17 @@ function Weekday({ id, day, getDayID }) {
 }
 
 export default function HabitPage() {
+    const [update, setUpdate] = useState(false)
     const [habitList, setHabitlist] = useState([]);
     const [openForm, setOpenForm] = useState(false);
     const [name, setName] = useState('');
     const [days, setDays] = useState([]);
 
-    getHabitList()
-        .catch(error => alert(error.response.data.message))
-        .then(response => setHabitlist(response.data));
+    useEffect(() => {
+        getHabitList()
+            .catch(error => alert(error.response.data.message))
+            .then(response => setHabitlist(response.data));
+    }, [update])
 
     const handleCreateHabit = (e) => {
         e.preventDefault();
@@ -43,7 +44,7 @@ export default function HabitPage() {
         createHabits(bodyHabit)
             .catch(error => alert(error.response.data.message))
             .then(response => {
-                getHabitList();
+                setUpdate(!update);
                 setOpenForm(!openForm);
                 setName("");
                 setDays([]);
@@ -82,7 +83,12 @@ export default function HabitPage() {
                             </Title>
                             <Days>
                                 {weekdays.map((value, index) => (
-                                    <Weekday key={index} id={index} day={value} getDayID={getDayID} />
+                                    <Weekday
+                                        key={index}
+                                        id={index}
+                                        day={value}
+                                        getDayID={getDayID}
+                                    />
                                 ))}
                             </Days>
                         </div>
@@ -104,7 +110,8 @@ export default function HabitPage() {
                                 days={value.days}
                                 name={value.name}
                                 habitId={value.id}
-                                getHabitList={getHabitList}
+                                update={update}
+                                setUpdate={setUpdate}
                             />
                         ))}
                     </>

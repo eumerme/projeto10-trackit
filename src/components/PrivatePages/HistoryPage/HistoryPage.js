@@ -1,5 +1,4 @@
-import Menu from "../common/Menu";
-import Top from "../common/Top";
+import { Top, Header, Menu } from "../common";
 
 export default function HistoryPage() {
     return (
