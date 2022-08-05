@@ -32,6 +32,12 @@ const Wrapper = styled.div`
         place-content: center;
     }
 
+    h2 {
+        font-size: 18px;
+        color: #BABABA;
+        margin-top: 10px
+    }
+
     ${props => {
         if (props.today) {
             return `
@@ -39,12 +45,6 @@ const Wrapper = styled.div`
                 align-items: flex-start;
                 justify-content: center;
                 margin: 10px 0 15px 0;
-
-                h2 {
-                    font-size: 18px;
-                    color: #BABABA;
-                    margin-top: 10px
-                }
             `;
         }
     }}

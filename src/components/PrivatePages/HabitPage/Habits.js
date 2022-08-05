@@ -1,4 +1,4 @@
-import { Habit, Title, Days } from "../styles/styles";
+import { Habit, Title, Days, Day } from "../styles/styles";
 import { deleteHabit } from "../../../services/trackit";
 import deleteIcon from "../../assets/image/trash-outline.svg";
 
@@ -23,11 +23,11 @@ export default function Habits({ days, name, habitId, update, setUpdate }) {
             </Title>
             <Days>
                 {weekdays.map((value, index) => {
-                    const isSelected = days.some(id => id === index);
-                    if (isSelected) {
-                        return <div className="day selected" key={index}>{value}</div>;
+                    const selected = days.some(id => id === index);
+                    if (selected) {
+                        return <Day isSelected={selected} key={index}>{value}</Day>;
                     } else {
-                        return <div className="day" key={index}>{value}</div>;
+                        return <Day key={index}>{value}</Day>;
                     };
                 })}
             </Days>

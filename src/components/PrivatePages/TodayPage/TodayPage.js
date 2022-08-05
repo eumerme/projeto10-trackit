@@ -4,33 +4,41 @@ import { Top, Header, Menu } from "../common";
 import { Main } from "../styles/styles";
 import checkIcon from "../../assets/image/check.svg"
 import { getTodayHabit, habitCheck, habitUncheck } from "../../../services/trackit";
+import { getWeekday, getDay } from "./TodayData";
 
 function TodayList({
     name,
     currentSequence,
     highestSequence,
     done,
-    habitId
+    habitId,
+    update,
+    setUpdate
 }) {
-    console.log(done)
     const handleHabitCheck = () => {
         if (done) {
             habitUncheck(habitId)
-                .catch(error => console.log(error.response.data))
-                .then(response => console.log(response));
+                .catch(error => alert(error.response.data.message))
+                .then(response => setUpdate(!update));
         } else {
             habitCheck(habitId)
-                .catch(error => console.log(error.response.data))
-                .then(response => console.log(response));
+                .catch(error => alert(error.response.data.message))
+                .then(response => setUpdate(!update));
         }
     };
 
     return (
         <TodayHabit>
-            <TodayTitle>
+            <TodayTitle done={done} goal={done && currentSequence === highestSequence}>
                 <h1>{name}</h1>
-                <h2>{`Sequência atual: ${currentSequence} dias`}</h2>
-                <h2>{`Seu recorde: ${highestSequence} dias`}</h2>
+                <div>
+                    <h2>Sequência atual:</h2>&nbsp;
+                    <p>{`${currentSequence} ${currentSequence === 1 ? "dia" : "dias"}`}</p>
+                </div>
+                <div>
+                    <h2>Seu recorde:</h2>&nbsp;
+                    <span>{`${highestSequence} ${highestSequence === 1 ? "dia" : "dias"}`}</span>
+                </div>
             </TodayTitle>
             <Check done={done} onClick={handleHabitCheck}>
                 <img src={checkIcon} alt='' />
@@ -40,23 +48,21 @@ function TodayList({
 }
 
 export default function TodayPage() {
+    const [update, setUpdate] = useState(false);
     const [todayHabits, setTodayHabits] = useState([]);
 
     useEffect(() => {
         getTodayHabit()
             .catch(error => alert(error.response.data.message))
-            .then(response => {
-                console.log(response.data);
-                setTodayHabits(response.data)
-            });
-    }, [])
+            .then(response => setTodayHabits(response.data));
+    }, [update])
 
     return (
         <>
             <Top />
             <Main>
                 <Header today>
-                    <h1>Segunda</h1>
+                    <h1>{`${getWeekday}, ${getDay}`}</h1>
                     <h2>Nenhum hábito concluído ainda</h2>
                 </Header>
                 {todayHabits.length !== 0 ? (
@@ -68,6 +74,8 @@ export default function TodayPage() {
                             done={value.done}
                             currentSequence={value.currentSequence}
                             highestSequence={value.highestSequence}
+                            update={update}
+                            setUpdate={setUpdate}
                         />))
                 ) : ("")}
             </Main>
@@ -93,9 +101,24 @@ const TodayTitle = styled.div`
         font-size: 20px;
         margin-bottom: 10px;
     }
+
+    div{
+        display: flex;
+    }
+
     h2 {
         font-size: 14px;
         line-height: 16px;
+    }
+
+    p {
+        font-size: 14px;
+        color: ${props => props.done ? "#8FC549" : ""};
+    }
+
+    span {
+        font-size: 14px;
+        color: ${props => props.goal ? "#8FC549" : ""};
     }
 `;
 

@@ -17,7 +17,7 @@ function creatHeaders() {
 }
 
 function signUp(bodySignup) {
-    const promise = axios.post(`${urlBase}/trackit/auth/sign-up`, bodySignup);
+    const promise = axios.post(`${urlBase}/auth/sign-up`, bodySignup);
     return promise;
 }
 
@@ -52,16 +52,14 @@ function getTodayHabit() {
 }
 
 function habitCheck(habitId) {
-    console.log(habitId, "chamei check")
     const config = creatHeaders();
-    const promise = axios.post(`${urlBase}/habits/${habitId}/check`, config);
+    const promise = axios.post(`${urlBase}/habits/${habitId}/check`, {}, config);
     return promise;
 }
 
 function habitUncheck(habitId) {
-    console.log(habitId, "chamei uncheck")
     const config = creatHeaders();
-    const promise = axios.post(`${urlBase}/habits/${habitId}/uncheck`, config);
+    const promise = axios.post(`${urlBase}/habits/${habitId}/uncheck`, {}, config);
     return promise;
 }
 

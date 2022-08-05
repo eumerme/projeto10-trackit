@@ -1,28 +1,25 @@
 import { useEffect, useState } from "react";
 import { createHabits, getHabitList } from "../../../services/trackit";
-import { Main, Habit, Title, Days, Buttons, Info } from "../styles/styles";
+import { Main, Habit, Title, Days, Day, Buttons, Info } from "../styles/styles";
 import { Top, Header, Menu } from "../common";
-import "../styles/style.css";
 import Habits from "./Habits";
 
 const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 function Weekday({ id, day, getDayID }) {
     const [selected, setSelected] = useState(false);
-
     return (
-        <div
-            key={id}
+        <Day
+            isSelected={selected}
             onClick={() => { getDayID(id); setSelected(!selected) }}
-            className={`day ${selected ? "selected" : ""}`}
         >
             {day}
-        </div>
+        </Day>
     );
 }
 
 export default function HabitPage() {
-    const [update, setUpdate] = useState(false)
+    const [update, setUpdate] = useState(false);
     const [habitList, setHabitlist] = useState([]);
     const [openForm, setOpenForm] = useState(false);
     const [name, setName] = useState('');
