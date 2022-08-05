@@ -1,13 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../services/trackit";
-import ContainerLoginSignup from "../styles/style";
+import Wrapper from "../styles/style";
 import logo from "../../assets/image/logo.svg";
-import UserContext from "../../../Contexts/UserContext";
+//import UserContext from "../../../Contexts/UserContext";
 
 export default function LoginPage() {
     const navigate = useNavigate();
-    const { setUser } = useContext(UserContext);
+  //  const { user, setUser } = useContext(UserContext);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -28,7 +28,6 @@ export default function LoginPage() {
         login(bodyLogin)
             .catch(error => alert(error.response.data.message))
             .then(response => {
-                setUser(response.data);
                 localStorage.setItem("trackit", JSON.stringify(
                     {
                         token: response.data.token,
@@ -36,12 +35,13 @@ export default function LoginPage() {
                         timestamp: +new Date()
                     }
                 ));
+             //   setUser(JSON.parse(localStorage.getItem("trackit")));
                 navigate('/hoje')
             });
     };
 
     return (
-        <ContainerLoginSignup>
+        <Wrapper>
             <img src={logo} alt='TrackIt' />
             <form onSubmit={handleLogin}>
                 <div>
@@ -69,6 +69,6 @@ export default function LoginPage() {
             <Link to='/cadastro'>
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
-        </ContainerLoginSignup>
+        </Wrapper>
     );
 }

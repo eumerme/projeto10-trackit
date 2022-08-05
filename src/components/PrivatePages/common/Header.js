@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import UserContext from "../../../Contexts/UserContext";
 
 export default function Header({ children, today }) {
+    const { percentage } = useContext(UserContext)
+
     return (
-        <Wrapper today={today}>
+        <Wrapper today={today} percentDone={percentage}>
             {children}
         </Wrapper>
     );
@@ -34,7 +38,7 @@ const Wrapper = styled.div`
 
     h2 {
         font-size: 18px;
-        color: #BABABA;
+        color: ${props => props.percentDone !== 0 ? "#8FC549" : "#BABABA"};
         margin-top: 10px
     }
 

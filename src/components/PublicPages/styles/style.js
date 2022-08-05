@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ContainerLoginSignup = styled.div`
+const Wrapper = styled.div`
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -48,4 +48,4 @@ const ContainerLoginSignup = styled.div`
     }
 `;
 
-export default ContainerLoginSignup;
+export default Wrapper;

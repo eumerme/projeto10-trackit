@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { signUp } from '../../../services/trackit';
-import ContainerLoginSignup from '../styles/style';
+import Wrapper from '../styles/style';
 import logo from '../../assets/image/logo.svg';
 
 export default function SingupPage() {
@@ -31,7 +31,7 @@ export default function SingupPage() {
     };
 
     return (
-        <ContainerLoginSignup>
+        <Wrapper>
             <img src={logo} alt='TrackIt' />
             <form onSubmit={handleSignup}>
                 <div>
@@ -79,6 +79,6 @@ export default function SingupPage() {
             <Link to='/'>
                 <p>Já tem uma conta? Faça login!</p>
             </Link>
-        </ContainerLoginSignup>
+        </Wrapper>
     );
 }

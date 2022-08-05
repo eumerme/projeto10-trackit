@@ -2,9 +2,8 @@ import axios from "axios";
 
 const urlBase = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit';
 
-function creatHeaders() {
+function createHeaders() {
     const auth = JSON.parse(localStorage.getItem("trackit"));
-    console.log(auth)
 
     if (auth !== null) {
         const config = {
@@ -22,43 +21,44 @@ function signUp(bodySignup) {
 }
 
 function login(bodyLogin) {
-    const config = creatHeaders();
+    const config = createHeaders();
     const promise = axios.post(`${urlBase}/auth/login`, bodyLogin, config);
     return promise;
 }
 
 function createHabits(bodyHabit) {
-    const config = creatHeaders();
+    const config = createHeaders();
     const promise = axios.post(`${urlBase}/habits`, bodyHabit, config);
     return promise;
 }
 
 function getHabitList() {
-    const config = creatHeaders();
+    const config = createHeaders();
     const promise = axios.get(`${urlBase}/habits`, config);
     return promise;
 }
 
 function deleteHabit(habitId) {
-    const config = creatHeaders();
+    const config = createHeaders();
     const promise = axios.delete(`${urlBase}/habits/${habitId}`, config);
     return promise;
 }
 
 function getTodayHabit() {
-    const config = creatHeaders();
+    const config = createHeaders();
     const promise = axios.get(`${urlBase}/habits/today`, config);
     return promise;
 }
 
 function habitCheck(habitId) {
-    const config = creatHeaders();
+    console.log(habitId, "chamei check")
+    const config = createHeaders();
     const promise = axios.post(`${urlBase}/habits/${habitId}/check`, {}, config);
     return promise;
 }
 
 function habitUncheck(habitId) {
-    const config = creatHeaders();
+    const config = createHeaders();
     const promise = axios.post(`${urlBase}/habits/${habitId}/uncheck`, {}, config);
     return promise;
 }

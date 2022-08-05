@@ -28,7 +28,7 @@ export default function HabitPage() {
     useEffect(() => {
         getHabitList()
             .catch(error => alert(error.response.data.message))
-            .then(response => setHabitlist(response.data));
+            .then(response => setHabitlist(response.data.reverse()));
     }, [update])
 
     const handleCreateHabit = (e) => {

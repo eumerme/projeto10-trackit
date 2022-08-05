@@ -1,7 +1,10 @@
+//import { useContext } from "react";
 import styled from "styled-components";
+//import UserContext from "../../../Contexts/UserContext";
 
 export default function Top() {
     const auth = JSON.parse(localStorage.getItem("trackit"));
+    //const { user } = useContext(UserContext)
     return (
         <Wrapper>
             <span>TrackIt</span>

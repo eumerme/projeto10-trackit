@@ -10,14 +10,16 @@ import HistoryPage from "./PrivatePages/HistoryPage/HistoryPage";
 import Private from "./PrivatePages/common/Private";
 
 export default function App() {
-    const [currentDay, setCurrentDay] = useState([]);
+    const [user, setUser] = useState({});
+    const [percentage, setPercentage] = useState(0);
 
-    
+    console.log(user)
+    console.log(percentage)
 
     return (
         <>
             <GlobalStyle />
-            <UserContext.Provider value={{ currentDay, setCurrentDay }}>
+            <UserContext.Provider value={{ user, setUser, percentage, setPercentage }}>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<LoginPage />} />

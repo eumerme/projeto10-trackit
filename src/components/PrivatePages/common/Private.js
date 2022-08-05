@@ -18,13 +18,14 @@ function renderError() {
 
 export default function Private({ children }) {
     const auth = JSON.parse(localStorage.getItem("trackit"));
-    const timeLogged = auth.timestamp;
-    const timeNow = +new Date();   
-    const hour = (1000 * 60) * 60;
-
+    
     if (!auth) {
         return renderError();
     };
+    
+    const timeLogged = auth.timestamp;
+    const timeNow = +new Date();   
+    const hour = (1000 * 60) * 60;
 
     if (timeNow - timeLogged <= hour) {
         return <>{children}</>;

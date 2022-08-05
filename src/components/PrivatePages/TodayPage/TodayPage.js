@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Top, Header, Menu } from "../common";
 import { Main } from "../styles/styles";
 import checkIcon from "../../assets/image/check.svg"
 import { getTodayHabit, habitCheck, habitUncheck } from "../../../services/trackit";
 import { getWeekday, getDay } from "./TodayData";
+import UserContext from "../../../Contexts/UserContext";
 
 function TodayList({
     name,
@@ -48,22 +49,42 @@ function TodayList({
 }
 
 export default function TodayPage() {
+    const { percentage, setPercentage } = useContext(UserContext);
     const [update, setUpdate] = useState(false);
     const [todayHabits, setTodayHabits] = useState([]);
+    const [habitDone, setHabitDone] = useState(false);
 
     useEffect(() => {
         getTodayHabit()
             .catch(error => alert(error.response.data.message))
-            .then(response => setTodayHabits(response.data));
-    }, [update])
+            .then(response => {
+                setTodayHabits(response.data);
+
+                const isDone = response.data.filter(value => value.done);
+                const getPercentDone = Math.round((isDone.length / todayHabits.length) * 100);
+
+                setPercentage(getPercentDone);
+
+                if (isDone.length !== 0) {
+                    setHabitDone(true);
+                } else {
+                    setHabitDone(false);
+
+                }
+            });
+    }, [setPercentage, todayHabits, update]);
 
     return (
         <>
             <Top />
             <Main>
-                <Header today>
+                <Header today >
                     <h1>{`${getWeekday}, ${getDay}`}</h1>
-                    <h2>Nenhum hábito concluído ainda</h2>
+                    {percentage !== 0 ? (
+                        <h2>{`${percentage}% dos hábitos concluídos`}</h2>
+                    ) : (
+                        <h2>Nenhum hábito concluído ainda</h2>
+                    )}
                 </Header>
                 {todayHabits.length !== 0 ? (
                     todayHabits.map((value) => (
@@ -79,7 +100,6 @@ export default function TodayPage() {
                         />))
                 ) : ("")}
             </Main>
-
             <Menu />
         </>
     );
