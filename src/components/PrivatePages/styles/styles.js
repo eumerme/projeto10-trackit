@@ -34,6 +34,7 @@ const Title = styled.div`
         border: 1px solid #D4D4D4;
         border-radius: 5px;
         padding-left: 10px;
+        background-color: ${props => props.disable ? "#F2F2F2" : ""};
     }
 
     input::placeholder {
@@ -61,7 +62,7 @@ const Days = styled.div`
     display: flex;
 `;
 
-const Day = styled.div`
+const Day = styled.button`
     width: 30px !important;
     height: 30px !important;
     margin-right: 5px;
@@ -72,6 +73,7 @@ const Day = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #ffffff;
 
     ${props => {
         if (props.isSelected) {

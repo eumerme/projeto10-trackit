@@ -30,6 +30,7 @@ export default function Private({ children }) {
     if (timeNow - timeLogged <= hour) {
         return <>{children}</>;
     } else {
+        window.location.reload();
         return renderError();
     };
 }
@@ -44,7 +45,7 @@ const ReturnTo = styled.div`
     align-items: center;
 
     h1 {
-        font-size: 25px;
+        font-size: 23px;
         margin: 30px 0 40px 0;
     }
 

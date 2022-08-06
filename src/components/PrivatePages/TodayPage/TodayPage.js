@@ -6,6 +6,7 @@ import checkIcon from "../../assets/image/check.svg"
 import { getTodayHabit, habitCheck, habitUncheck } from "../../../services/trackit";
 import { getWeekday, getDay } from "./TodayData";
 import UserContext from "../../../Contexts/UserContext";
+import Loading from "../../LoadingPage/Loading";
 
 function TodayList({
     name,
@@ -13,18 +14,18 @@ function TodayList({
     highestSequence,
     done,
     habitId,
-    update,
-    setUpdate
+    updateToday,
+    setUpdateToday
 }) {
     const handleHabitCheck = () => {
         if (done) {
             habitUncheck(habitId)
                 .catch(error => alert(error.response.data.message))
-                .then(response => setUpdate(!update));
+                .then(response => setUpdateToday(!updateToday));
         } else {
             habitCheck(habitId)
                 .catch(error => alert(error.response.data.message))
-                .then(response => setUpdate(!update));
+                .then(response => setUpdateToday(!updateToday));
         }
     };
 
@@ -50,7 +51,7 @@ function TodayList({
 
 export default function TodayPage() {
     const { percentage, setPercentage } = useContext(UserContext);
-    const [update, setUpdate] = useState(false);
+    const [updateToday, setUpdateToday] = useState(false);
     const [todayHabits, setTodayHabits] = useState([]);
     const [habitDone, setHabitDone] = useState(false);
 
@@ -58,7 +59,7 @@ export default function TodayPage() {
         getTodayHabit()
             .catch(error => alert(error.response.data.message))
             .then(response => {
-                setTodayHabits(response.data);
+                setTodayHabits(response.data.reverse());
 
                 const isDone = response.data.filter(value => value.done);
                 const getPercentDone = Math.round((isDone.length / todayHabits.length) * 100);
@@ -69,36 +70,39 @@ export default function TodayPage() {
                     setHabitDone(true);
                 } else {
                     setHabitDone(false);
-
                 }
             });
-    }, [setPercentage, todayHabits, update]);
+    }, [setPercentage, todayHabits, updateToday]);
 
     return (
         <>
             <Top />
             <Main>
-                <Header today >
-                    <h1>{`${getWeekday}, ${getDay}`}</h1>
-                    {percentage !== 0 ? (
-                        <h2>{`${percentage}% dos hábitos concluídos`}</h2>
-                    ) : (
-                        <h2>Nenhum hábito concluído ainda</h2>
-                    )}
-                </Header>
-                {todayHabits.length !== 0 ? (
-                    todayHabits.map((value) => (
-                        <TodayList
-                            key={value.id}
-                            habitId={value.id}
-                            name={value.name}
-                            done={value.done}
-                            currentSequence={value.currentSequence}
-                            highestSequence={value.highestSequence}
-                            update={update}
-                            setUpdate={setUpdate}
-                        />))
-                ) : ("")}
+                {todayHabits.length === 0 ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <Header today >
+                            <h1>{`${getWeekday}, ${getDay}`}</h1>
+                            {(percentage !== 0 && percentage !== Infinity)? (
+                                <h2>{`${percentage}% dos hábitos concluídos`}</h2>
+                            ) : (
+                                <h2>Nenhum hábito concluído ainda</h2>
+                            )}
+                        </Header>
+                        {todayHabits.map((value) => (
+                            <TodayList
+                                key={value.id}
+                                habitId={value.id}
+                                name={value.name}
+                                done={value.done}
+                                currentSequence={value.currentSequence}
+                                highestSequence={value.highestSequence}
+                                updateToday={updateToday}
+                                setUpdateToday={setUpdateToday}
+                            />))}
+                    </>
+                )}
             </Main>
             <Menu />
         </>

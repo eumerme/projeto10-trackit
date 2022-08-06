@@ -1,12 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { signUp } from '../../../services/trackit';
-import Wrapper from '../styles/style';
+import { ThreeDots } from "react-loader-spinner";
+import { Wrapper, LoaderSpinner } from '../styles/style';
 import logo from '../../assets/image/logo.svg';
 
 export default function SingupPage() {
     const navigate = useNavigate();
-
+    const [disable, setDisable] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         name: '',
@@ -23,15 +24,19 @@ export default function SingupPage() {
 
     const handleSignup = (e) => {
         e.preventDefault();
+        setDisable(true);
         const bodySignup = { ...formData };
 
         signUp(bodySignup)
-            .catch(error => alert(error.response.data.message))
+            .catch(error => {
+                setDisable(true);
+                alert(error.response.data.message)
+            })
             .then(response => navigate('/'));
     };
 
     return (
-        <Wrapper>
+        <Wrapper disable={disable}>
             <img src={logo} alt='TrackIt' />
             <form onSubmit={handleSignup}>
                 <div>
@@ -42,6 +47,7 @@ export default function SingupPage() {
                         value={formData.email}
                         name="email"
                         onChange={handleInputs}
+                        disabled={disable}
                     />
                 </div>
                 <div>
@@ -52,6 +58,7 @@ export default function SingupPage() {
                         value={formData.password}
                         name="password"
                         onChange={handleInputs}
+                        disabled={disable}
                     />
                 </div>
                 <div>
@@ -61,6 +68,7 @@ export default function SingupPage() {
                         required
                         value={formData.name}
                         name="name"
+                        disabled={disable}
                         onChange={handleInputs}
                     />
                 </div>
@@ -71,10 +79,17 @@ export default function SingupPage() {
                         required
                         value={formData.image}
                         name="image"
+                        disabled={disable}
                         onChange={handleInputs}
                     />
                 </div>
-                <button type='submit'>Cadastrar</button>
+                {!disable ? (
+                    <button type='submit' disabled={disable}>Entrar</button>
+                ) : (
+                    <LoaderSpinner>
+                        <ThreeDots color="#ffffff" height={13} width={51} />
+                    </LoaderSpinner>
+                )}
             </form>
             <Link to='/'>
                 <p>Já tem uma conta? Faça login!</p>

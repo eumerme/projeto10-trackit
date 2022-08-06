@@ -7,6 +7,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 10px;
     background-color: #ffffff;
 
     img {
@@ -14,7 +15,7 @@ const Wrapper = styled.div`
     }
 
     input {
-        width: 303px;
+        width: 100%;
         height: 45px;
         font-size: 20px;
         color: #666666;
@@ -22,7 +23,8 @@ const Wrapper = styled.div`
         outline: none;
         border: 1px solid #D5D5D5;
         border-radius: 5px;
-        padding-left: 10px;
+        padding: 0 10px;
+        background-color: ${props => props.disable ? "#F2F2F2" : ""};
     }
 
     input::placeholder {
@@ -31,7 +33,7 @@ const Wrapper = styled.div`
     }
 
     button {
-        width: 303px;
+        width: 100%;
         height: 45px;
         font-size: 20px;
         color: #ffffff;
@@ -48,4 +50,29 @@ const Wrapper = styled.div`
     }
 `;
 
-export default Wrapper;
+const LoaderSpinner = styled.div`
+    width: 100%;
+    height: 45px;
+    background-color: #86CCFF;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 6px 0 25px 0;
+
+    ${props => {
+        if (props.saveHabit) {
+            return `
+              &&& {
+                width: 84px;
+                height: 35px;
+                display: grid;
+                align-content: center;
+                margin: 0;
+              } 
+            `;
+        }
+    }}
+`;
+
+export { Wrapper, LoaderSpinner };

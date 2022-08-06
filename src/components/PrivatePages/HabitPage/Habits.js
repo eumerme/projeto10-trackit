@@ -4,14 +4,14 @@ import deleteIcon from "../../assets/image/trash-outline.svg";
 
 const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-export default function Habits({ days, name, habitId, update, setUpdate }) {
+export default function Habits({ days, name, habitId, updateHabits, setUpdateHabits }) {
     const handleDeleteHabit = () => {
         const confirm = window.confirm("Gostaria de apagar esse hábito?")
 
         if (confirm) {
             deleteHabit(habitId)
                 .catch(error => alert(error.response.data.message))
-                .then(response => setUpdate(!update));
+                .then(response => setUpdateHabits(!updateHabits));
         };
     };
 
