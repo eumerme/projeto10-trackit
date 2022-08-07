@@ -7,7 +7,7 @@ import UserContext from "../../../Contexts/UserContext";
 const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 export default function Habits({ days, name, habitId }) {
-    const { update, setUpdate } = useContext(UserContext);
+    const { reload, setReload } = useContext(UserContext);
 
     const handleDeleteHabit = () => {
         const confirm = window.confirm("Gostaria de apagar esse hábito?")
@@ -15,12 +15,12 @@ export default function Habits({ days, name, habitId }) {
         if (confirm) {
             deleteHabit(habitId)
                 .catch(error => alert(error.response.data.message))
-                .then(response => setUpdate(!update));
+                .then(response => setReload(!reload));
         };
     };
 
     return (
-        <Habit>
+        <Habit added>
             <Title>
                 <img src={deleteIcon} onClick={handleDeleteHabit} alt='deletar hábito' />
                 <h1>{name}</h1>

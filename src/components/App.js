@@ -11,12 +11,12 @@ import Private from "./PrivatePages/common/Private";
 
 export default function App() {
     const [percentage, setPercentage] = useState(0);
-    const [update, setUpdate] = useState(false);
+    const [reload, setReload] = useState(false);
 
     return (
         <>
             <GlobalStyle />
-            <UserContext.Provider value={{ percentage, setPercentage, update, setUpdate }}>
+            <UserContext.Provider value={{ percentage, setPercentage, reload, setReload }}>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<LoginPage />} />

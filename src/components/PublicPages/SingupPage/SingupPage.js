@@ -26,12 +26,13 @@ export default function SingupPage() {
         e.preventDefault();
         setDisable(true);
         const bodySignup = { ...formData };
+        const promise = signUp(bodySignup);
 
-        signUp(bodySignup).catch(error => {
+        promise.catch(error => {
             setDisable(false);
             alert(error.response.data.message);
         });
-        signUp(bodySignup).then(response => {
+        promise.then(response => {
             alert("Cadastro realizado com sucesso!");
             navigate('/');
         });

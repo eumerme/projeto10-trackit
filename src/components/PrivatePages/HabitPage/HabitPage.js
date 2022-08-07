@@ -26,8 +26,8 @@ function Weekday({ id, day, getDayID, disable }) {
 }
 
 export default function HabitPage() {
-    const { update, setUpdate } = useContext(UserContext);
-    const [habitList, setHabitlist] = useState([]);
+    const { reload, setReload } = useContext(UserContext);
+    const [habitList, setHabitlist] = useState(null);
     const [openForm, setOpenForm] = useState(false);
     const [name, setName] = useState('');
     const [days, setDays] = useState([]);
@@ -37,7 +37,7 @@ export default function HabitPage() {
         getHabitList()
             .catch(error => alert(error.response.data.message))
             .then(response => setHabitlist(response.data.reverse()));
-    }, [update])
+    }, [reload])
 
     const handleCreateHabit = (e) => {
         e.preventDefault();
@@ -54,7 +54,7 @@ export default function HabitPage() {
                     alert(error.response.data.message);
                 })
                 .then(response => {
-                    setUpdate(!update);
+                    setReload(!reload);
                     setOpenForm(!openForm);
                     setName("");
                     setDays([]);
@@ -79,7 +79,7 @@ export default function HabitPage() {
         <>
             <Top />
             <Container>
-                {habitList.length === 0 ? (
+                {habitList === null ? (
                     <Loading />
                 ) : (
                     <>

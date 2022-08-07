@@ -11,17 +11,17 @@ export default function TodayList({
     done,
     habitId
 }) {
-    const {update, setUpdate} = useContext(UserContext);
+    const {reload, setReload} = useContext(UserContext);
     
     const handleHabitCheck = () => {
         if (done) {
             habitUncheck(habitId)
                 .catch(error => alert(error.response.data.message))
-                .then(response => setUpdate(!update));
+                .then(response => setReload(!reload));
         } else {
             habitCheck(habitId)
                 .catch(error => alert(error.response.data.message))
-                .then(response => setUpdate(!update));
+                .then(response => setReload(!reload));
         }
     };
 

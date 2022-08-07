@@ -11,7 +11,7 @@ const Habit = styled.form`
     width: 100%;
     min-height: 91px;
     max-height: 200px;
-    padding: 18px 40px 18px 18px;
+    padding: ${props => props.added ? "18px 40px 18px 18px" : "18px"};
     margin-bottom: 30px;
     background-color: #ffffff;
     border-radius: 5px;
@@ -118,6 +118,7 @@ const Buttons = styled.div`
 const Info = styled.div`
     font-size: 18px;
     line-height: 22px;
+    margin-top: ${props => props.today ? "30px" : ""};
 `;
 
 export { Container, Habit, Title, Days, Day, Buttons, Info };

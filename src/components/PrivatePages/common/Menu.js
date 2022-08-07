@@ -7,6 +7,7 @@ import UserContext from "../../../Contexts/UserContext";
 
 export default function Menu() {
     const { percentage } = useContext(UserContext);
+    
     return (
         <Wrapper>
             <Link to='/habitos'>
