@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Main = styled.div`
+const Container = styled.div`
     width: 100%;
     height: 100%;
     padding: 18px;
@@ -10,8 +10,8 @@ const Main = styled.div`
 const Habit = styled.form`
     width: 100%;
     min-height: 91px;
-    max-height: 180px;
-    padding: 18px;
+    max-height: 200px;
+    padding: 18px 40px 18px 18px;
     margin-bottom: 30px;
     background-color: #ffffff;
     border-radius: 5px;
@@ -120,4 +120,4 @@ const Info = styled.div`
     line-height: 22px;
 `;
 
-export { Main, Habit, Title, Days, Day, Buttons, Info };
+export { Container, Habit, Title, Days, Day, Buttons, Info };

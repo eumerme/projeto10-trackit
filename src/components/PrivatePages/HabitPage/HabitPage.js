@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { createHabits, getHabitList } from "../../../services/trackit";
-import { Main, Habit, Title, Days, Day, Buttons, Info } from "../styles/styles";
+import { Container, Habit, Title, Days, Day, Buttons, Info } from "../styles/sharedStyles";
 import { Top, Header, Menu } from "../common";
 import Habits from "./Habits";
 import Loading from "../../LoadingPage/Loading";
 import { ThreeDots } from "react-loader-spinner";
-import { LoaderSpinner } from "../../PublicPages/styles/style";
+import { LoaderSpinner } from "../../PublicPages/styles/styles";
+import UserContext from "../../../Contexts/UserContext";
 
 const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 function Weekday({ id, day, getDayID, disable }) {
     const [selected, setSelected] = useState(false);
+
     return (
         <Day
             type="button"
@@ -24,7 +26,7 @@ function Weekday({ id, day, getDayID, disable }) {
 }
 
 export default function HabitPage() {
-    const [updateHabits, setUpdateHabits] = useState(false);
+    const { update, setUpdate } = useContext(UserContext);
     const [habitList, setHabitlist] = useState([]);
     const [openForm, setOpenForm] = useState(false);
     const [name, setName] = useState('');
@@ -35,31 +37,33 @@ export default function HabitPage() {
         getHabitList()
             .catch(error => alert(error.response.data.message))
             .then(response => setHabitlist(response.data.reverse()));
-    }, [updateHabits])
+    }, [update])
 
     const handleCreateHabit = (e) => {
         e.preventDefault();
-        setDisable(true);
         const bodyHabit = {
             name,
             days,
         };
 
-        createHabits(bodyHabit)
-            .catch(error => {
-                alert(error.response.data.message);
-                setDisable(false);
-            })
-            .then(response => {
-                setUpdateHabits(!updateHabits);
-                setOpenForm(!openForm);
-                setName("");
-                setDays([]);
-                setDisable(false);
-            });
+        if (days.length !== 0) {
+            setDisable(true);
+            createHabits(bodyHabit)
+                .catch(error => {
+                    setDisable(false);
+                    alert(error.response.data.message);
+                })
+                .then(response => {
+                    setUpdate(!update);
+                    setOpenForm(!openForm);
+                    setName("");
+                    setDays([]);
+                    setDisable(false);
+                });
+        } else {
+            alert("Escolha pelo menos um dia.")
+        }
     };
-
-    console.log(disable, "habit")
 
     const getDayID = (index) => {
         const isSelected = days.some(id => id === index);
@@ -74,7 +78,7 @@ export default function HabitPage() {
     return (
         <>
             <Top />
-            <Main>
+            <Container>
                 {habitList.length === 0 ? (
                     <Loading />
                 ) : (
@@ -132,15 +136,13 @@ export default function HabitPage() {
                                         days={value.days}
                                         name={value.name}
                                         habitId={value.id}
-                                        updateHabits={updateHabits}
-                                        setUpdateHabits={setUpdateHabits}
                                     />
                                 ))}
                             </>
                         )}
                     </>
                 )}
-            </Main>
+            </Container>
             <Menu />
         </>
     );

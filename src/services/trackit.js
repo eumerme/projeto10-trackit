@@ -51,7 +51,6 @@ function getTodayHabit() {
 }
 
 function habitCheck(habitId) {
-    console.log(habitId, "chamei check")
     const config = createHeaders();
     const promise = axios.post(`${urlBase}/habits/${habitId}/check`, {}, config);
     return promise;

@@ -34,6 +34,7 @@ const Wrapper = styled.div`
         border-radius: 5px;
         display: grid;
         place-content: center;
+        padding-bottom: 4px;
     }
 
     h2 {

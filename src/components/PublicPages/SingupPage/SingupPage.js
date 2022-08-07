@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { signUp } from '../../../services/trackit';
 import { ThreeDots } from "react-loader-spinner";
-import { Wrapper, LoaderSpinner } from '../styles/style';
+import { Wrapper, LoaderSpinner } from '../styles/styles';
 import logo from '../../assets/image/logo.svg';
 
 export default function SingupPage() {
@@ -27,12 +27,14 @@ export default function SingupPage() {
         setDisable(true);
         const bodySignup = { ...formData };
 
-        signUp(bodySignup)
-            .catch(error => {
-                setDisable(true);
-                alert(error.response.data.message)
-            })
-            .then(response => navigate('/'));
+        signUp(bodySignup).catch(error => {
+            setDisable(false);
+            alert(error.response.data.message);
+        });
+        signUp(bodySignup).then(response => {
+            alert("Cadastro realizado com sucesso!");
+            navigate('/');
+        });
     };
 
     return (

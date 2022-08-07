@@ -30,7 +30,6 @@ export default function Private({ children }) {
     if (timeNow - timeLogged <= hour) {
         return <>{children}</>;
     } else {
-        window.location.reload();
         return renderError();
     };
 }

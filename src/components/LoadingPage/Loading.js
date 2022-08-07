@@ -2,7 +2,7 @@ import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 
 export default function Loading() {
-    return(
+    return (
         <Wrapper>
             <ThreeDots
                 color="#52B6FF"
@@ -14,8 +14,8 @@ export default function Loading() {
 }
 
 const Wrapper = styled.div`
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     display: grid;
     place-content: center;
 `;

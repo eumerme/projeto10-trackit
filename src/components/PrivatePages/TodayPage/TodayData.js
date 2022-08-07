@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import updateLocale from "dayjs/plugin/updateLocale";
 
-
 dayjs.extend(updateLocale);
 
 const today = dayjs().day();

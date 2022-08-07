@@ -1,18 +1,18 @@
 import { Top, Header, Menu } from "../common";
-import { Info, Main } from "../styles/styles";
+import { Info, Container } from "../styles/sharedStyles";
 
 export default function HistoryPage() {
     return (
         <>
             <Top />
-            <Main>
+            <Container>
                 <Header>
                     <h1>Histórico</h1>
                 </Header>
                 <Info>
                     Em breve você poderá ver o histórico dos seus hábitos aqui!
                 </Info>
-            </Main>
+            </Container>
             <Menu />
         </>
     );

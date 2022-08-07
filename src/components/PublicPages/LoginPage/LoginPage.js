@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { login } from "../../../services/trackit";
 import { ThreeDots } from "react-loader-spinner";
-import { Wrapper, LoaderSpinner } from "../styles/style";
+import { Wrapper, LoaderSpinner } from "../styles/styles";
 import logo from "../../assets/image/logo.svg";
 
 export default function LoginPage() {

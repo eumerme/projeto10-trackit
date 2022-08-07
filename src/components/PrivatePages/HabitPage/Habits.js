@@ -1,17 +1,21 @@
-import { Habit, Title, Days, Day } from "../styles/styles";
+import { Habit, Title, Days, Day } from "../styles/sharedStyles";
 import { deleteHabit } from "../../../services/trackit";
 import deleteIcon from "../../assets/image/trash-outline.svg";
+import { useContext } from "react";
+import UserContext from "../../../Contexts/UserContext";
 
 const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-export default function Habits({ days, name, habitId, updateHabits, setUpdateHabits }) {
+export default function Habits({ days, name, habitId }) {
+    const { update, setUpdate } = useContext(UserContext);
+
     const handleDeleteHabit = () => {
         const confirm = window.confirm("Gostaria de apagar esse hábito?")
 
         if (confirm) {
             deleteHabit(habitId)
                 .catch(error => alert(error.response.data.message))
-                .then(response => setUpdateHabits(!updateHabits));
+                .then(response => setUpdate(!update));
         };
     };
 
